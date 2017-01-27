@@ -1,0 +1,38 @@
+.ember-modal-dialog {
+  background: none;
+  box-shadow: none;
+  margin: unit-space(2) auto;
+}
+
+.ember-modal-overlay.translucent {
+  background: rgba($alt-color, 0.8);
+  overflow: scroll;
+}
+
+.global-search-search {
+  .tabs {
+    margin-top: unit-space(1);
+    .button {
+      font-size: 18px;
+      padding: 0px 15px;
+      &.active {
+        background: $action-color;
+      }
+    }
+  }
+}
+
+.global-search-box {
+  background: #fff;
+  box-shadow: 0 1px 10px rgba(darken($alt-color, 20), 0.7);
+  padding: unit-space(1);
+  border-radius: 4px;
+  margin: unit-space(1) 0;
+  h3 {
+    margin-top: 0;
+    border-bottom: 1px solid $main-color;
+  }
+  h4 {
+    font-weight: bold;
+  }
+}

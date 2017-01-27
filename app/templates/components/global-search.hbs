@@ -1,0 +1,75 @@
+<div class="global-search-control">
+  {{#power-select
+      search=(perform autoSuggest)
+      selected=seachText
+      onchange=(perform updateSearch)
+      class="input-text"
+      placeholder="Search..."
+      as |option|
+  }}
+    {{option.title}}
+  {{/power-select}}
+</div>
+
+{{#if showModal}}
+  {{#modal-dialog
+      close=(action 'toggleModal')
+      targetAttachment="none"
+      translucentOverlay=true
+      container-class="col-md-8"
+  }}
+    <div class="global-search-box global-search-search">
+      {{one-way-input
+          seachText
+          type="search"
+          update=(perform updateSearch)
+          class="input-text" placeholder="Search..."
+      }}
+      <a href="#" class="pull-right">Advanced</a>
+      <div class="tabs">
+        {{#if updateSearch.isRunning}}
+          <p>Loading data...</p>
+        {{else}}
+          <button type="button" name="button" class="button {{if isAll 'active'}}" {{action 'viewAllResult' 'all'}}>
+            All ({{totalCount}})
+          </button>
+          {{#each results.categories as |category|}}
+            <button type="button" name="button" class="button {{if (eq selectedCategory category.title) 'active'}}" {{action 'viewAllResult' category.title}}>
+              {{category.title}} ({{category.count}})
+            </button>
+          {{/each}}
+        {{/if}}
+      </div>
+    </div>
+
+    {{#if isAll}}
+      {{#each results.categories as |category|}}
+        <div class="global-search-box">
+          <h3>{{category.title}}</h3>
+          <ul>
+              {{#each (limit-results category.results 3) as |result|}}
+                <li>
+                  <h4>{{result.title}}</h4>
+                  Country: {{result.country}}
+                </li>
+              {{/each}}
+          </ul>
+          <a {{action 'viewAllResult' category.title}}>View all {{category.count}} results.</a>
+        </div>
+      {{/each}}
+    {{else}}
+      <div class="global-search-box">
+        <h3>{{categoryResults.title}}</h3>
+        <ul>
+            {{#each categoryResults.results as |result|}}
+              <li>
+                <h4>{{result.title}}</h4>
+                Country: {{result.country}}
+              </li>
+            {{/each}}
+        </ul>
+      </div>
+    {{/if}}
+
+  {{/modal-dialog}}
+{{/if}}

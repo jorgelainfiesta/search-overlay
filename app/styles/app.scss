@@ -1,7 +1,17 @@
+@import "ember-modal-dialog/ember-modal-structure";
+@import "ember-modal-dialog/ember-modal-appearance";
+
 @import 'base/all';
 @import 'modules/header';
 @import 'modules/nav-bar';
 
+
 body {
   @include body-copy();
 }
+
+.pull-right {
+  float: right;
+}
+
+@import "ember-power-select";
